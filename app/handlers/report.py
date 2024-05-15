@@ -13,8 +13,8 @@ async def callback_hour(context: ContextTypes.DEFAULT_TYPE) -> None:
 
     connection = sqlite3.connect(DB_PATH, detect_types=sqlite3.PARSE_DECLTYPES)
     df = pd.read_sql("SELECT * FROM rates", connection)
-    df["time"] = pd.to_datetime(df["time"])
-    df["time"] = df["time"].dt.strftime("%Y-%m-%d %H:%M:%S")
+    df["datetime"] = pd.to_datetime(df["datetime"])
+    df["datetime"] = df["datetime"].dt.strftime("%Y-%m-%d %H:%M:%S")
     df.to_excel(XLSX_FILE_PATH, index=False)
 
     await context.bot.send_document(
