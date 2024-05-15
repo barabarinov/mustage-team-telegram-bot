@@ -13,7 +13,7 @@ pip install -r requirements.txt
 > ```
 
 
-### Create an .env file and put your TELEGRAM_TOKEN using .env.example:
+### Create an `.env` file and put your TELEGRAM_TOKEN using `.env.example`:
 
 ### To run the bot use the following command:
 ```shell
