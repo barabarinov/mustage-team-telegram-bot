@@ -33,17 +33,21 @@ def escape(s: str) -> str:
 class DBHandler:
 
     def __init__(self) -> None:
-        self.connection = sqlite3.connect(DB_PATH)
+        self.connection = sqlite3.connect(DB_PATH, detect_types=sqlite3.PARSE_DECLTYPES)
+        self.initialize_db()
+
+    def initialize_db(self):
+        cursor = self.connection.cursor()
+        cursor.execute("CREATE TABLE IF NOT EXISTS rates (time TIMESTAMP, rate REAL)")
+        self.connection.commit()
 
     def save_to_db(self, exchange_rate: float) -> None:
         cursor = self.connection.cursor()
-
-        cursor.execute("CREATE TABLE IF NOT EXISTS rates (time TEXT, rate REAL)")
-        datetime_str = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        datetime_obj = datetime.now()
 
         cursor.execute(
             "INSERT INTO rates (time, rate) VALUES (?, ?)",
-            (datetime_str, exchange_rate),
+            (datetime_obj, exchange_rate),
         )
         self.connection.commit()
         self.connection.close()
