@@ -38,7 +38,7 @@ class DBHandler:
 
     def initialize_db(self):
         cursor = self.connection.cursor()
-        cursor.execute("CREATE TABLE IF NOT EXISTS rates (time TIMESTAMP, rate REAL)")
+        cursor.execute("CREATE TABLE IF NOT EXISTS rates (datetime TIMESTAMP, rate REAL)")
         self.connection.commit()
 
     def save_to_db(self, exchange_rate: float) -> None:
@@ -46,7 +46,7 @@ class DBHandler:
         datetime_obj = datetime.now()
 
         cursor.execute(
-            "INSERT INTO rates (time, rate) VALUES (?, ?)",
+            "INSERT INTO rates (datetime, rate) VALUES (?, ?)",
             (datetime_obj, exchange_rate),
         )
         self.connection.commit()
