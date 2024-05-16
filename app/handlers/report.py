@@ -20,6 +20,7 @@ async def callback_hour(context: ContextTypes.DEFAULT_TYPE) -> None:
     await context.bot.send_document(
         chat_id=context.job.chat_id, document=open(XLSX_FILE_PATH, "rb")
     )
+    print("✅ File sent successfully!")
 
 
 async def get_exchange_rate(
