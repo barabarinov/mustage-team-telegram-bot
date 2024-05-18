@@ -9,10 +9,17 @@ class InvalidHtml(Exception):
     pass
 
 
+class ResponseError(Exception):
+    pass
+
+
 def fetch_exchange_rate() -> float:
     response = requests.get(URL)
+    if response.status_code != 200:
+        raise ResponseError(
+            f"Unexpected response status: {response.status_code}, Reason: {response.reason}"
+        )
     soup = BeautifulSoup(response.text, "html.parser")
-
     div_with_data_entity_type_3 = soup.find("div", attrs={"data-entity-type": "3"})
 
     if not div_with_data_entity_type_3:
