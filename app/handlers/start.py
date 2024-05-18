@@ -11,8 +11,8 @@ async def callback_hour(context: ContextTypes.DEFAULT_TYPE) -> None:
 
 
 async def run_job_hourly(
-        update: Update,
-        context: ContextTypes.DEFAULT_TYPE,
+    update: Update,
+    context: ContextTypes.DEFAULT_TYPE,
 ) -> None:
     context.job_queue.run_repeating(callback_hour, interval=3600, first=1)
     print("✅ Job started successfully!")
